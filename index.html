@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bizim Hikâyemiz 💗</title>
+  <meta name="description" content="Sevgililer Günü sürprizi — bizim hikâyemiz, anılarımız, fotoğraflarımız." />
+
+  <style>
+    :root{
+      --bg1:#fff5f8;
+      --bg2:#ffe6ee;
+      --card:#ffffffcc;
+      --text:#2a1a1f;
+      --muted:#6a4a55;
+      --rose:#ff4d6d;
+      --rose2:#ff85a1;
+      --wine:#b81d4a;
+      --gold:#d4a373;
+      --shadow: 0 18px 55px rgba(0,0,0,.12);
+      --radius: 22px;
+      --radius2: 16px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      color:var(--text);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(1200px 700px at 15% 10%, rgba(255,77,109,.18), transparent 55%),
+        radial-gradient(900px 600px at 85% 20%, rgba(255,133,161,.18), transparent 60%),
+        radial-gradient(900px 600px at 50% 95%, rgba(212,163,115,.18), transparent 55%),
+        linear-gradient(160deg, var(--bg1), var(--bg2));
+      overflow-x:hidden;
+    }
+
+    /* soft floating hearts */
+    .hearts{
+      position:fixed; inset:0;
+      pointer-events:none;
+      opacity:.35;
+      filter: blur(.2px);
+    }
+    .heart{
+      position:absolute;
+      width:14px; height:14px;
+      transform: rotate(45deg);
+      background: radial-gradient(circle at 30% 30%, #fff, rgba(255,255,255,.0) 35%),
+                  linear-gradient(135deg, var(--rose), var(--rose2));
+      border-radius: 3px;
+      animation: floatUp linear infinite;
+      box-shadow: 0 10px 30px rgba(255,77,109,.25);
+    }
+    .heart:before,.heart:after{
+      content:"";
+      position:absolute;
+      width:14px; height:14px;
+      background:inherit;
+      border-radius:50%;
+    }
+    .heart:before{ left:-7px; top:0; }
+    .heart:after{ top:-7px; left:0; }
+    @keyframes floatUp{
+      from{ transform: translateY(20vh) rotate(45deg); opacity:0; }
+      10%{ opacity:1; }
+      to{ transform: translateY(-120vh) rotate(45deg); opacity:0; }
+    }
+
+    .wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 26px 16px 80px;
+    }
+
+    header.hero{
+      position:relative;
+      border-radius: calc(var(--radius) + 8px);
+      padding: 28px 18px;
+      background: linear-gradient(135deg, rgba(255,255,255,.72), rgba(255,255,255,.35));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .hero:after{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(600px 220px at 12% 0%, rgba(255,77,109,.25), transparent 60%),
+        radial-gradient(500px 260px at 88% 15%, rgba(255,133,161,.22), transparent 62%),
+        radial-gradient(420px 300px at 50% 110%, rgba(212,163,115,.18), transparent 60%);
+      pointer-events:none;
+      mix-blend-mode: multiply;
+    }
+    .hero-inner{
+      position:relative;
+      display:grid;
+      gap: 18px;
+      grid-template-columns: 1.3fr .7fr;
+      align-items:center;
+    }
+    @media (max-width: 860px){
+      .hero-inner{ grid-template-columns: 1fr; }
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(255,77,109,.12);
+      border: 1px solid rgba(255,77,109,.22);
+      color: var(--wine);
+      font-weight: 700;
+      letter-spacing:.2px;
+      width: fit-content;
+      position:relative;
+      z-index:1;
+    }
+
+    h1{
+      margin: 10px 0 8px;
+      font-size: clamp(28px, 4.2vw, 44px);
+      line-height: 1.05;
+      position:relative;
+      z-index:1;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.6;
+      max-width: 62ch;
+      position:relative;
+      z-index:1;
+    }
+
+    .names{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top: 12px;
+      position:relative;
+      z-index:1;
+    }
+    .chip{
+      padding: 10px 12px;
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: 999px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0,0,0,.06);
+    }
+
+    .side-card{
+      position:relative;
+      z-index:1;
+      border-radius: var(--radius);
+      padding: 18px;
+      background: rgba(255,255,255,.62);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+    }
+    .side-title{
+      margin:0 0 10px;
+      font-size: 16px;
+      letter-spacing:.2px;
+    }
+    .stat{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(0,0,0,.12);
+      color: var(--muted);
+      font-size: 14px;
+    }
+    .stat:last-child{ border-bottom:none; }
+    .stat b{ color: var(--text); }
+
+    section{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px){
+      section{ grid-template-columns: 1fr; }
+    }
+
+    .card{
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.66);
+      border: 1px solid rgba(0,0,0,.06);
+      box-shadow: 0 14px 40px rgba(0,0,0,.08);
+      overflow:hidden;
+    }
+    .card-header{
+      padding: 18px 18px 14px;
+      display:flex;
+      align-items:baseline;
+      justify-content:space-between;
+      gap: 10px;
+      background: linear-gradient(135deg, rgba(255,77,109,.10), rgba(255,133,161,.07));
+    }
+    .card-header h2{
+      margin:0;
+      font-size: 18px;
+      letter-spacing:.2px;
+    }
+    .hint{
+      color: var(--muted);
+      font-size: 12.8px;
+      white-space:nowrap;
+    }
+    .card-body{
+      padding: 16px 18px 18px;
+    }
+
+    .quote{
+      margin: 0 0 10px;
+      font-size: 14.8px;
+      line-height:1.7;
+      color: var(--muted);
+    }
+    .quote strong{ color: var(--wine); }
+
+    /* timeline */
+    .timeline{
+      position:relative;
+      margin-top: 8px;
+      padding-left: 14px;
+    }
+    .timeline:before{
+      content:"";
+      position:absolute;
+      left: 6px; top: 4px; bottom: 4px;
+      width:2px;
+      background: linear-gradient(var(--rose), transparent);
+      opacity:.35;
+    }
+    .titem{
+      position:relative;
+      padding: 10px 10px 10px 16px;
+      border-radius: 14px;
+      margin: 8px 0;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(0,0,0,.05);
+    }
+    .titem:before{
+      content:"";
+      position:absolute;
+      left: -2px; top: 14px;
+      width:10px; height:10px;
+      border-radius:50%;
+      background: linear-gradient(135deg, var(--rose), var(--rose2));
+      box-shadow: 0 10px 20px rgba(255,77,109,.20);
+    }
+    .tdate{
+      font-weight:800;
+      color: var(--wine);
+      font-size: 13px;
+      letter-spacing:.2px;
+    }
+    .ttext{
+      margin-top: 4px;
+      color: var(--text);
+      font-size: 14px;
+      line-height:1.55;
+    }
+
+    /* gallery */
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 520px){
+      .grid{ grid-template-columns: 1fr; }
+    }
+    .photo{
+      border-radius: var(--radius2);
+      overflow:hidden;
+      border: 1px solid rgba(0,0,0,.06);
+      background: rgba(255,255,255,.65);
+    }
+    .ph{
+      aspect-ratio: 4 / 3;
+      width:100%;
+      display:block;
+      object-fit: cover;
+      background:
+        linear-gradient(135deg, rgba(255,77,109,.15), rgba(255,133,161,.10)),
+        radial-gradient(100px 100px at 30% 30%, rgba(255,255,255,.75), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.65), rgba(255,255,255,.25));
+    }
+    .pcap{
+      padding: 10px 10px 12px;
+      font-size: 13.6px;
+      color: var(--muted);
+      line-height:1.45;
+    }
+
+    /* secret */
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      align-items:center;
+      margin-top: 8px;
+    }
+    input[type="text"]{
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(0,0,0,.10);
+      background: rgba(255,255,255,.75);
+      min-width: 240px;
+      outline:none;
+    }
+    button{
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: none;
+      background: linear-gradient(135deg, var(--rose), var(--rose2));
+      color: white;
+      font-weight: 800;
+      box-shadow: 0 16px 40px rgba(255,77,109,.25);
+      transition: transform .08s ease;
+    }
+    button:active{ transform: translateY(1px) scale(.99); }
+    .secret{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.65);
+      border: 1px dashed rgba(184,29,74,.35);
+      display:none;
+      line-height:1.6;
+    }
+
+    footer{
+      margin-top: 18px;
+      text-align:center;
+      color: var(--muted);
+      font-size: 12.8px;
+      padding: 10px 0 0;
+    }
+    .small{
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+
+  <div class="wrap">
+    <header class="hero">
+      <div class="hero-inner">
+        <div>
+          <div class="badge">💌 Sevgililer Günü Sürprizi</div>
+          <h1 id="title">Bizim Hikâyemiz</h1>
+          <p class="sub" id="subtitle">
+            Bazı insanlar “güzel tesadüf” der… Ben “iyi ki” diyorum.
+            Bu sayfa, tanıştığımız günden bugüne biriken küçük büyük her şeyi,
+            bir “biz” arşivi gibi saklasın diye.
+          </p>
+
+          <div class="names">
+            <div class="chip" id="name1">Barış</div>
+            <div class="chip">+</div>
+            <div class="chip" id="name2">[Sevgilinin Adı]</div>
+            <div class="chip">=</div>
+            <div class="chip">💗</div>
+          </div>
+          <div class="small" style="margin-top:8px;">
+            Not: Metinleri ve tarihleri aşağıdaki “Düzenlenecek Alanlar” kısmından hızlıca değiştirebilirsin.
+          </div>
+        </div>
+
+        <aside class="side-card">
+          <p class="side-title">Küçük Özet</p>
+          <div class="stat"><span>İlk gün</span><b id="startDate">2023-06-12</b></div>
+          <div class="stat"><span>Bugün</span><b id="todayDate">—</b></div>
+          <div class="stat"><span>Birlikte geçen</span><b id="daysCount">— gün</b></div>
+          <div class="stat"><span>Bizim şarkımız</span><b id="song">[Şarkı Adı]</b></div>
+        </aside>
+      </div>
+    </header>
+
+    <section>
+      <div class="card">
+        <div class="card-header">
+          <h2>💗 Bir Cümlelik Gerçekler</h2>
+          <span class="hint">Kısa ama “biz” gibi</span>
+        </div>
+        <div class="card-body" id="quotes">
+          <p class="quote"><strong>1)</strong> Senin yanında “gün” daha yumuşak, “zaman” daha hızlı.</p>
+          <p class="quote"><strong>2)</strong> En sevdiğim yer: yanın. En güzel plan: seninle.</p>
+          <p class="quote"><strong>3)</strong> Küçük şeyler büyük olur; çünkü birlikteyken her şey anlam kazanır.</p>
+          <p class="quote"><strong>4)</strong> “Biz” dediğimde içim rahatlıyor. Bu kadar basit.</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>🗓️ Zaman Çizelgemiz</h2>
+          <span class="hint">Tarihleri buradan gir</span>
+        </div>
+        <div class="card-body">
+          <div class="timeline" id="timeline"></div>
+          <div class="small">
+            İpucu: En altta <b>EVENTS</b> listesinde tarihleri ve olayları değiştir.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>📸 Fotoğraf Köşesi</h2>
+          <span class="hint">Anı kartları</span>
+        </div>
+        <div class="card-body">
+          <div class="grid" id="gallery">
+            <!-- items injected by JS -->
+          </div>
+          <div class="small" style="margin-top:10px;">
+            Foto URL’si eklemek istemezsen boş bırak; yer tutucu görsel otomatik çıkar.
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h2>🔐 Mini Sürpriz</h2>
+          <span class="hint">Sadece o bilsin</span>
+        </div>
+        <div class="card-body">
+          <p class="quote">
+            Bu kutu küçük bir oyun: aranızdaki bir “iç şaka”yı parola yaptım.
+            Doğru kelimeyi yazınca gizli mesaj açılacak.
+          </p>
+
+          <div class="row">
+            <input id="codeInput" type="text" placeholder="Parola (ör. ilk buluşma mekânı)" autocomplete="off" />
+            <button id="checkBtn">Aç</button>
+          </div>
+
+          <div class="secret" id="secretBox">
+            <div style="font-weight:900; color: var(--wine); margin-bottom:6px;">🎁 Sürpriz Mesaj</div>
+            <div id="secretText"></div>
+          </div>
+
+          <div class="small" style="margin-top:10px;">
+            Parola büyük/küçük harfe duyarlı değil. Yanlışsa kızma: bu sayfa romantik ama güvenlikçi. 🙂
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      Bu sayfa bir “iyi ki” arşividir. 💗<br/>
+      <span class="small">İstersen en alta bir “gelecek planları” bölümü de ekleriz.</span>
+    </footer>
+  </div>
+
+  <script>
+    /***********************
+     * DÜZENLENECEK ALANLAR
+     ***********************/
+    const CONFIG = {
+      title: "Bizim Hikâyemiz",
+      subtitle:
+        "Bazı insanlar “güzel tesadüf” der… Ben “iyi ki” diyorum. " +
+        "Bu sayfa, tanıştığımız günden bugüne biriken küçük büyük her şeyi, " +
+        "bir “biz” arşivi gibi saklasın diye.",
+      name1: "Barış",
+      name2: "Günel",
+      startDate: "2025-08-06",        // YYYY-MM-DD
+      song: "True Love Waits - Radiohead",
+      secretCode: "bizonunluyuz",      // parola (iç şaka / mekan / tarih vb.)
+      secretMessage:
+        "Sana baktığımda, geleceğin “korkutucu” değil “heyecanlı” olduğunu hissediyorum. " +
+        "İyi ki varsın. Bu hikâyenin en güzel kısmı: daha bitmedi.",
+      events: [
+        { date: "2025-08-06", title: "İlk Tanışmamız", desc: "O günden bir anı: Çaresizce Macromusic'de dolaşırken sana rasladım otistik olmana tutuldum :)) ." },
+        { date: "2025-08-11", title: "Sevgili Olduğumuz İlk Gün", desc: "Hoşlanıyorum diyerek açılmıştım" },
+        { date: "2025-08-11", title: "İlk Buluşmamız", desc: "Discord, Wall-E izlemiştik" },
+        { date: "2026-02-14", title: "Bir Sevgililer Günü", desc: "Bu sayfanın sebebi. 🙂" },
+        { date: "2025-08-23", title: "Unutulmaz bir gün", desc: "Sizin için anlamlı bir olay ekle." }
+      ],
+      photos: [
+        { url: "", caption: "Bu kare: “tamam” dediğim an." },
+        { url: "", caption: "Burada hep güldük. (Evet, yine senin yüzünden.)" },
+        { url: "", caption: "Birlikteyken her şey daha kolay." },
+        { url: "", caption: "Bu fotoğrafın kokusu bile var gibi." }
+      ]  };
+
+    /***********************
+     * SAYFAYA UYGULA
+     ***********************/
+    document.getElementById("title").textContent = CONFIG.title;
+    document.getElementById("subtitle").textContent = CONFIG.subtitle;
+    document.getElementById("name1").textContent = CONFIG.name1;
+    document.getElementById("name2").textContent = CONFIG.name2;
+    document.getElementById("startDate").textContent = CONFIG.startDate;
+    document.getElementById("song").textContent = CONFIG.song;
+
+    // today + days count
+    const today = new Date();
+    const start = new Date(CONFIG.startDate + "T00:00:00");
+    const diffMs = today - start;
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    const pad2 = n => String(n).padStart(2,"0");
+    const todayStr = `${today.getFullYear()}-${pad2(today.getMonth()+1)}-${pad2(today.getDate())}`;
+    document.getElementById("todayDate").textContent = todayStr;
+    document.getElementById("daysCount").textContent = `${diffDays} gün`;
+
+    // timeline render
+    const tl = document.getElementById("timeline");
+    const eventsSorted = [...CONFIG.events].sort((a,b)=> new Date(a.date) - new Date(b.date));
+    tl.innerHTML = eventsSorted.map(e => `
+      <div class="titem">
+        <div class="tdate">${e.date} — ${escapeHtml(e.title)}</div>
+        <div class="ttext">${escapeHtml(e.desc)}</div>
+      </div>
+    `).join("");
+
+    // gallery render
+    const gal = document.getElementById("gallery");
+    gal.innerHTML = CONFIG.photos.map(p => {
+      const hasUrl = (p.url || "").trim().length > 0;
+      return `
+        <div class="photo">
+          ${hasUrl
+            ? `<img class="ph" src="${escapeAttr(p.url)}" alt="Anı fotoğrafı" />`
+            : `<div class="ph" role="img" aria-label="Fotoğraf alanı (yer tutucu)"></div>`
+          }
+          <div class="pcap">${escapeHtml(p.caption)}</div>
+        </div>
+      `;
+    }).join("");
+
+    // secret
+    const input = document.getElementById("codeInput");
+    const btn = document.getElementById("checkBtn");
+    const box = document.getElementById("secretBox");
+    const secretText = document.getElementById("secretText");
+    secretText.textContent = CONFIG.secretMessage;
+
+    btn.addEventListener("click", () => {
+      const v = (input.value || "").trim().toLowerCase();
+      if(!v) return;
+      if(v === CONFIG.secretCode.toLowerCase()){
+        box.style.display = "block";
+        box.scrollIntoView({ behavior:"smooth", block:"nearest" });
+      } else {
+        box.style.display = "none";
+        alert("Olmadı 🙂 İpucu: aranızdaki iç şaka / mekan / tek kelime.");
+      }
+    });
+
+    // hearts background
+    const hearts = document.getElementById("hearts");
+    const HEARTS = 24;
+    for(let i=0;i<HEARTS;i++){
+      const h = document.createElement("div");
+      h.className = "heart";
+      const left = Math.random() * 100;
+      const delay = Math.random() * 8;
+      const dur = 10 + Math.random() * 12;
+      const size = 10 + Math.random() * 12;
+      h.style.left = left + "vw";
+      h.style.animationDelay = delay + "s";
+      h.style.animationDuration = dur + "s";
+      h.style.width = size + "px";
+      h.style.height = size + "px";
+      hearts.appendChild(h);
+    }
+
+    function escapeHtml(str){
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+    function escapeAttr(str){
+      return escapeHtml(str).replaceAll("`","&#096;");
+    }
+  </script>
+</body>
+</html>
